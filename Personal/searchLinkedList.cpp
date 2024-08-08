@@ -23,13 +23,10 @@ public:
     LinkedList(int data){
         this->head = new Node(data);
     }
-    int isEmpty(void){
-        return this->head == NULL;
-    }
 //Print function
     void print(){
         Node *ptr;
-        if (this->isEmpty()){
+        if (this->head == NULL){
             std::cout<<"\n\nList: Empty\n\n";
             return;
         }
@@ -44,7 +41,7 @@ public:
 //Insert functions
     void insertEnd(int data){
         Node *ptr;
-        if (this->isEmpty()){
+        if (this->head == NULL){
             this->head = new Node(data);
             return;
         }
@@ -56,35 +53,30 @@ public:
     void insertBegining(int data){
         Node *ptr;
         ptr = new Node(data);
-        if (this->isEmpty()){
+        if (this->head == NULL){
             this->head = ptr;
             return;
         }
         ptr->next = this->head;
         this->head = ptr;
     }
-
 //Delete functions
     void deleteEnd(void){
         Node *ptr;
-        if (this->isEmpty()){
+        if (this->head == NULL){
             std::cout<<"List is already empty!\n";
             return;
         }
-        for (ptr = this->head; ptr->next != NULL; ptr = ptr->next);
-        delete ptr;
+        for (ptr = this->head; ptr->next->next != NULL; ptr = ptr->next);
+        delete ptr->next->next;
         ptr->next = NULL;
     }
 
     void deleteBeginning(void){
         Node *ptr;
-        if (this->isEmpty()){
-            std::cout<<"List is already empty!\n";
-            return;
-        }
-        ptr = this->head;
-        this->head = ptr->next;
-        delete ptr;
+        ptr = this->head->next;
+        delete this->head;
+        this->head = ptr;
     }
 
     void deleteElement(int data){
@@ -98,7 +90,7 @@ public:
             deleteBeginning();
             return;
         }
-        for (nextPtr = ptr->next; nextPtr != NULL; nextPtr = ptr->next ){
+        for (nextPtr = ptr->next; nextPtr->next != NULL; nextPtr = ptr->next ){
             
             if (nextPtr->data == data){
                 ptr->next = nextPtr->next;
@@ -107,31 +99,44 @@ public:
             }
             ptr = nextPtr;
         }
+        if (nextPtr->data == data){
+            deleteEnd();
+            return;
+        }
         std::cout<<"Element not found!\n";
         return;
     }
-//Reversal
-    void reverseList(){
-        Node *temp1, *temp2, *temp_head;
-        temp1 = this->head->next;
-        temp2 = temp1->next;
-        this->head->next = NULL;
-        while(temp1 != NULL){
-            temp2 = temp1->next;
-            temp1->next = this->head;
-            this->head = temp1;
-            temp1 = temp2;
-        } 
+//search function
+    void searchElement(int data){
+        Node *ptr;
+        if (this->head == NULL){
+            std::cout<<"List is empty!\n";
+            return;
+        }
+        for (ptr = this->head; ptr->next != NULL; ptr = ptr->next){
+            if (ptr->data == data){
+                std::cout<<"Element is in the list\n";
+                return;
+            }
+        }
+        if (ptr->data == data){
+            std::cout<<"Element is in the list\n";
+            return;
+        }
+        std::cout<<"Element is not in the list!\n";
+        return;
     }
 };
 int main(){
     LinkedList list;
+    int target;
 
     for (int i = 10; i > 0; --i){
         list.insertBegining(i);
     }
     list.print();
-    list.reverseList();
-    list.print();
+    std::cout<<"Enter element to search: ";
+    std::cin>>target;
+    list.searchElement(target);
     return 0;
 }

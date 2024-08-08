@@ -41,28 +41,6 @@ public:
         }
         std::cout<<ptr->data<<"->END\n\n";
     }
-//Insert functions
-    void insertEnd(int data){
-        Node *ptr;
-        if (this->isEmpty()){
-            this->head = new Node(data);
-            return;
-        }
-        for (ptr = this->head; ptr->next != NULL; ptr = ptr->next);
-        ptr->next = new Node(data);
-        return;
-    }
-
-    void insertBegining(int data){
-        Node *ptr;
-        ptr = new Node(data);
-        if (this->isEmpty()){
-            this->head = ptr;
-            return;
-        }
-        ptr->next = this->head;
-        this->head = ptr;
-    }
 
 //Delete functions
     void deleteEnd(void){
@@ -110,28 +88,40 @@ public:
         std::cout<<"Element not found!\n";
         return;
     }
-//Reversal
-    void reverseList(){
-        Node *temp1, *temp2, *temp_head;
-        temp1 = this->head->next;
-        temp2 = temp1->next;
-        this->head->next = NULL;
-        while(temp1 != NULL){
-            temp2 = temp1->next;
-            temp1->next = this->head;
-            this->head = temp1;
-            temp1 = temp2;
-        } 
+//Insert functions
+    void insertEnd(int data){
+        Node *ptr;
+        if (this->isEmpty()){
+            this->head = new Node(data);
+            return;
+        }
+        for (ptr = this->head; ptr->next != NULL; ptr = ptr->next);
+        ptr->next = new Node(data);
+        return;
+    }
+
+    void insertBegining(int data){
+        Node *ptr;
+        ptr = new Node(data);
+        if (this->isEmpty()){
+            this->head = ptr;
+            return;
+        }
+        ptr->next = this->head;
+        this->head = ptr;
     }
 };
 int main(){
     LinkedList list;
+    int size, data;
 
-    for (int i = 10; i > 0; --i){
-        list.insertBegining(i);
+    std::cout<<"Enter size of list: ";
+    std::cin>>size;
+
+    for (int i = 0; i < size; i++){
+        std::cin>>data;
+        list.insertEnd(data);
     }
-    list.print();
-    list.reverseList();
     list.print();
     return 0;
 }

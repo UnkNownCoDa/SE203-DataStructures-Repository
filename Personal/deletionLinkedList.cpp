@@ -110,28 +110,27 @@ public:
         std::cout<<"Element not found!\n";
         return;
     }
-//Reversal
-    void reverseList(){
-        Node *temp1, *temp2, *temp_head;
-        temp1 = this->head->next;
-        temp2 = temp1->next;
-        this->head->next = NULL;
-        while(temp1 != NULL){
-            temp2 = temp1->next;
-            temp1->next = this->head;
-            this->head = temp1;
-            temp1 = temp2;
-        } 
-    }
 };
-int main(){
-    LinkedList list;
 
-    for (int i = 10; i > 0; --i){
-        list.insertBegining(i);
+int convertInt(char *num){
+    int result = 0;
+    for (int i = 0;num[i] != '\0'; ++i){
+        result *= 10;
+        result += num[i] - '0';
+    }
+    return result;
+}
+int main(int argc, char **argv){
+    LinkedList list;
+    int data;
+    for (int i = 1; i < argc; i++){
+        list.insertEnd(convertInt(argv[i]));
     }
     list.print();
-    list.reverseList();
+
+    std::cout<<"Enter element to delete: ";
+    std::cin>>data;
+    list.deleteElement(data);
     list.print();
     return 0;
 }
