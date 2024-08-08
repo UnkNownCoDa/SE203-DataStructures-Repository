@@ -145,99 +145,14 @@ public:
         this->head = temp1;
     }
 };
-
-void MainMenu(void);
-
-int main(void){
+int main(){
     LinkedList list;
-    int data, choice, run = 1;
-    while (run){
-        MainMenu();
-        std::cout<<"Enter you choice: ";
-        std::cin>>choice;
-        switch (choice){
-            case 1:
-                list.print();
-                break;
-            case 2:
-                std::cout<<"Enter enter data: ";
-                std::cin>>data;
-                std::cout<<"Where do you want to insert data:\n";
-                std::cout<<"1. At the beginning\n";
-                std::cout<<"2. At the end\n";
-                std::cout<<"Enter choice: ";
-                std::cin>>choice;
-                switch (choice){
-                    case 1:
-                        list.insertBegining(data);
-                        list.print();
-                        break;
-                    case 2:
-                        list.insertEnd(data);
-                        list.print();
-                        break;
-                    default:
-                        std::cout<<"Invalid input!\n";
-                        run = 0;
-                        break;
-                }
-                break;
-            case 3:
-                std::cout<<"What do you want to delete:\n";
-                std::cout<<"1. Delete beginning\n";
-                std::cout<<"2. Delete end\n";
-                std::cout<<"3. Delete element\n";
-                std::cout<<"Enter choice: ";
-                std::cin>>choice;
-                switch (choice){
-                    case 1:
-                        list.deleteBeginning();
-                        list.print();
-                        break;
-                    case 2:
-                        list.deleteEnd();
-                        list.print();
-                        break;
-                    case 3:
-                        std::cout<<"Enter data: ";
-                        std::cin>>data;
-                        list.deleteElement(data);
-                        list.print();
-                        break;
-                    default:
-                        std::cout<<"Invalid input!\n";
-                        run = 0;
-                        break;
-                }
-                break;
-            case 4:
-                std::cout<<"Enter element to search: ";
-                std::cin>>data;
-                list.print();
-                list.searchElement(data);
-                break;
-            case 5:
-                --run;
-                break;
-            case 6:
-                list.reverseList();
-                list.print();
-                break;
-            default:
-                std::cout<<"Invalid input!\n";
-                break;
-        }
+
+    for (int i = 10; i > 0; --i){
+        list.insertBegining(i);
     }
+    list.print();
+    list.reverseList();
+    list.print();
     return 0;
-}
-
-void MainMenu(void){
-    std::cout<<"\n\nWorking with linked lists!!!\n\n";
-    std::cout<<"What do you want to do today:\n";
-    std::cout<<"1. Print list\n";
-    std::cout<<"2. Insert into list\n";
-    std::cout<<"3. Delete from list\n";
-    std::cout<<"4. Search element in list\n";
-    std::cout<<"5. Exit\n";
-
 }
